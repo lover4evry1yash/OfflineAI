@@ -1,0 +1,86 @@
+﻿schema_version: 2
+
+id:
+
+name:
+
+status: pending
+
+priority: medium
+
+estimated_minutes: 30
+
+project_context:
+
+  architecture:
+
+  layer:
+
+  phase:
+
+  responsibility:
+
+goal: |
+
+depends_on: []
+
+creates: []
+
+modifies: []
+
+inputs: []
+
+outputs: []
+
+acceptance_criteria: []
+
+implementation_notes: []
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+

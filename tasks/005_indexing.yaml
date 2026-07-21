@@ -1,0 +1,140 @@
+﻿schema_version: 2
+
+id: 5
+
+name: Repository Intelligence
+
+status: pending
+
+priority: high
+
+estimated_minutes: 60
+
+project_context:
+
+  architecture: Offline AI
+
+  layer: Repository
+
+  phase: Repository Intelligence
+
+  responsibility: Build searchable repository indexes.
+
+goal: |
+
+  Build an intelligent repository indexing system capable
+  of understanding project structure by indexing files,
+  imports, classes, functions and symbols to support
+  fast semantic navigation.
+
+depends_on:
+
+  - 4
+
+creates:
+
+  - offline_ai/repository/indexer.py
+
+  - offline_ai/repository/search.py
+
+modifies: []
+
+inputs:
+
+  - Repository Scanner
+
+  - Repository Reader
+
+outputs:
+
+  - Repository Index
+
+  - Symbol Index
+
+  - Search API
+
+acceptance_criteria:
+
+  - Repository indexed.
+
+  - Symbols indexed.
+
+  - Classes indexed.
+
+  - Functions indexed.
+
+  - Imports indexed.
+
+  - Exact search.
+
+  - Fuzzy search.
+
+  - Ranked search results.
+
+  - Incremental indexing supported.
+
+implementation_notes:
+
+  - pathlib
+
+  - ast
+
+  - typing
+
+  - dataclasses(slots=True)
+
+  - dependency injection
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+  - architecture
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+
+  This module only understands repository structure.
+  It must never generate code or communicate with LM Studio.
+

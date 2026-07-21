@@ -1,0 +1,75 @@
+﻿schema_version: 2
+
+project:
+  name: Offline AI
+  version: 0.1.0
+  description: Autonomous Offline Software Engineering Agent
+
+execution:
+  executor: Cline
+  state_directory: state
+  tasks_directory: tasks
+  max_retries: 2
+  stop_after_each_task: true
+  auto_verify: true
+  auto_history: true
+  auto_metrics: true
+
+rules:
+  python: "3.12"
+  utf8: true
+  pathlib: true
+  dataclasses_slots: true
+  type_hints: true
+  docstrings: true
+  no_todo_comments: true
+  no_placeholder_code: true
+  no_circular_imports: true
+
+state_files:
+  current: state/current_task.json
+  history: state/history.json
+  metrics: state/metrics.json
+
+task_template: tasks/_template.yaml
+
+tasks:
+
+  - id: 0
+    file: tasks/000_project_bootstrap.yaml
+
+  - id: 1
+    file: tasks/001_core.yaml
+
+  - id: 2
+    file: tasks/002_logging.yaml
+
+  - id: 3
+    file: tasks/003_lmstudio.yaml
+
+  - id: 4
+    file: tasks/004_repository.yaml
+
+  - id: 5
+    file: tasks/005_indexing.yaml
+
+  - id: 6
+    file: tasks/006_planner.yaml
+
+  - id: 7
+    file: tasks/007_promptbuilder.yaml
+
+  - id: 8
+    file: tasks/008_workflow.yaml
+
+  - id: 9
+    file: tasks/009_patcher.yaml
+
+  - id: 10
+    file: tasks/010_validator.yaml
+
+  - id: 11
+    file: tasks/011_runner.yaml
+
+  - id: 12
+    file: tasks/012_memory.yaml

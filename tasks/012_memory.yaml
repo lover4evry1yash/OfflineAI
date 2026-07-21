@@ -1,0 +1,131 @@
+﻿schema_version: 2
+
+id: 12
+
+name: Memory System
+
+status: pending
+
+priority: medium
+
+estimated_minutes: 45
+
+project_context:
+
+  architecture: Offline AI
+
+  layer: Memory
+
+  phase: Persistence
+
+  responsibility: Persist execution knowledge.
+
+goal: |
+
+  Build the memory subsystem responsible for storing
+  execution history, completed tasks, statistics and
+  previous failures for future reasoning.
+
+depends_on:
+
+  - 11
+
+creates:
+
+  - offline_ai/memory/history.py
+
+  - offline_ai/memory/tasks.py
+
+modifies: []
+
+inputs:
+
+  - Execution Results
+
+  - Task Information
+
+outputs:
+
+  - History Store
+
+  - Task Store
+
+  - Statistics
+
+acceptance_criteria:
+
+  - History persistence.
+
+  - Task persistence.
+
+  - JSON storage.
+
+  - Timestamp support.
+
+  - Execution statistics.
+
+  - Failure history.
+
+implementation_notes:
+
+  - json
+
+  - pathlib
+
+  - datetime
+
+  - dataclasses
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+  - architecture
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+
+  Memory never executes code.
+  It only persists and retrieves execution knowledge.
+

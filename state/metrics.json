@@ -1,0 +1,20 @@
+﻿{
+  "schema_version":2,
+
+  "tasks_completed":0,
+  "tasks_failed":0,
+
+  "categories_completed":0,
+
+  "execution_time_seconds":0,
+
+  "tokens_used":0,
+
+  "files_created":0,
+
+  "files_modified":0,
+
+  "average_task_time_seconds":0,
+
+  "last_completed_task":null
+}

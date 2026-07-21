@@ -1,0 +1,145 @@
+﻿schema_version: 2
+
+id: 3
+
+name: LM Studio Client
+
+status: pending
+
+priority: critical
+
+estimated_minutes: 45
+
+project_context:
+
+  architecture: Offline AI
+
+  layer: Core
+
+  phase: AI Communication
+
+  responsibility: Communicate with LM Studio using the OpenAI-compatible API.
+
+goal: |
+
+  Build a reusable LM Studio client responsible for
+  connecting to locally hosted language models,
+  performing health checks, retrieving available models,
+  and sending chat completion requests with robust
+  retry, timeout, and logging support.
+
+depends_on:
+
+  - 1
+
+  - 2
+
+creates:
+
+  - offline_ai/core/lmstudio.py
+
+modifies: []
+
+inputs:
+
+  - Config
+
+  - Prompt
+
+  - Model Name
+
+outputs:
+
+  - Chat Completion
+
+  - Model List
+
+  - Health Status
+
+acceptance_criteria:
+
+  - Health endpoint supported.
+
+  - Available models retrievable.
+
+  - Chat completion implemented.
+
+  - Streaming responses supported.
+
+  - Configurable timeout.
+
+  - Automatic retries.
+
+  - Structured logging.
+
+  - Graceful exception handling.
+
+implementation_notes:
+
+  - requests
+
+  - pathlib
+
+  - typing
+
+  - dataclasses
+
+  - dependency injection
+
+  - configurable base URL
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+  - architecture
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+
+  This module is the only component allowed to
+  communicate directly with LM Studio.
+  Higher-level AI modules must use this interface
+  instead of making HTTP requests directly.
+

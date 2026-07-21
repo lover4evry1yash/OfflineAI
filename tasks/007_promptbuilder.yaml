@@ -1,0 +1,142 @@
+﻿schema_version: 2
+
+id: 7
+
+name: Prompt Builder
+
+status: pending
+
+priority: critical
+
+estimated_minutes: 50
+
+project_context:
+
+  architecture: Offline AI
+
+  layer: AI
+
+  phase: Prompt Engineering
+
+  responsibility: Build structured prompts for LM Studio.
+
+goal: |
+
+  Build a reusable Prompt Builder capable of combining
+  repository context, execution plans, coding standards,
+  architecture rules and user requests into optimized
+  prompts for language models.
+
+depends_on:
+
+  - 3
+
+  - 5
+
+  - 6
+
+creates:
+
+  - offline_ai/ai/prompt_builder.py
+
+modifies: []
+
+inputs:
+
+  - User Request
+
+  - Repository Context
+
+  - Execution Plan
+
+  - Architecture Rules
+
+outputs:
+
+  - System Prompt
+
+  - User Prompt
+
+  - Complete Prompt Package
+
+acceptance_criteria:
+
+  - PromptBuilder class.
+
+  - System prompt generation.
+
+  - User prompt generation.
+
+  - Repository context injection.
+
+  - Architecture context injection.
+
+  - Task context injection.
+
+  - Prompt size management.
+
+  - Token-efficient formatting.
+
+implementation_notes:
+
+  - dataclasses(slots=True)
+
+  - pathlib
+
+  - typing
+
+  - dependency injection
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+  - architecture
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+
+  Prompt Builder never communicates with LM Studio.
+  It only prepares prompts.
+

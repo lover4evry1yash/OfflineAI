@@ -1,0 +1,121 @@
+﻿schema_version: 2
+
+id: 10
+
+name: Validation Engine
+
+status: pending
+
+priority: critical
+
+estimated_minutes: 50
+
+project_context:
+
+  architecture: Offline AI
+
+  layer: Engine
+
+  phase: Verification
+
+  responsibility: Validate generated source code.
+
+goal: |
+
+  Build a validation engine that performs syntax,
+  import, architecture and quality verification before
+  any generated code is accepted.
+
+depends_on:
+
+  - 9
+
+creates:
+
+  - offline_ai/engine/validator.py
+
+modifies: []
+
+inputs:
+
+  - Source Code
+
+outputs:
+
+  - Validation Report
+
+acceptance_criteria:
+
+  - Syntax validation.
+
+  - Import validation.
+
+  - Circular import detection.
+
+  - Type hint validation.
+
+  - Architecture validation.
+
+  - Structured validation report.
+
+implementation_notes:
+
+  - ast
+
+  - compile
+
+  - typing
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+  - architecture
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+
+  Validator reports problems only.
+  It never modifies source files.
+

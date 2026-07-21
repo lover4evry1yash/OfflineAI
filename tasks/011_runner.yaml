@@ -1,0 +1,127 @@
+﻿schema_version: 2
+
+id: 11
+
+name: Execution Engine
+
+status: pending
+
+priority: high
+
+estimated_minutes: 40
+
+project_context:
+
+  architecture: Offline AI
+
+  layer: Engine
+
+  phase: Execution
+
+  responsibility: Execute commands safely.
+
+goal: |
+
+  Build an execution engine capable of running Python
+  scripts and shell commands while capturing output,
+  handling timeouts and reporting execution results.
+
+depends_on:
+
+  - 10
+
+creates:
+
+  - offline_ai/engine/runner.py
+
+modifies: []
+
+inputs:
+
+  - Command
+
+  - Working Directory
+
+outputs:
+
+  - Execution Result
+
+  - stdout
+
+  - stderr
+
+acceptance_criteria:
+
+  - Python execution.
+
+  - Shell execution.
+
+  - Timeout handling.
+
+  - Exit codes.
+
+  - Captured output.
+
+  - Structured execution report.
+
+implementation_notes:
+
+  - subprocess
+
+  - pathlib
+
+  - typing
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+  - architecture
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+
+  Runner executes commands only.
+  It never plans or generates code.
+

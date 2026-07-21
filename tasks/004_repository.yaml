@@ -1,0 +1,142 @@
+﻿schema_version: 2
+
+id: 4
+
+name: Repository Scanner
+
+status: pending
+
+priority: critical
+
+estimated_minutes: 50
+
+project_context:
+
+  architecture: Offline AI
+
+  layer: Repository
+
+  phase: Repository Intelligence
+
+  responsibility: Discover and read project files.
+
+goal: |
+
+  Build the repository scanning subsystem capable
+  of recursively discovering source files, safely
+  reading their contents, and preparing the project
+  for indexing and intelligent search.
+
+depends_on:
+
+  - 1
+
+  - 2
+
+creates:
+
+  - offline_ai/repository/scanner.py
+
+  - offline_ai/repository/reader.py
+
+modifies: []
+
+inputs:
+
+  - Repository Root
+
+outputs:
+
+  - File List
+
+  - Source Content
+
+  - Repository Metadata
+
+acceptance_criteria:
+
+  - Recursive scanning.
+
+  - Ignore hidden directories.
+
+  - Ignore .git.
+
+  - Ignore __pycache__.
+
+  - Ignore virtual environments.
+
+  - Binary files skipped.
+
+  - UTF-8 reading.
+
+  - Safe exception handling.
+
+  - Repository metadata collected.
+
+implementation_notes:
+
+  - pathlib
+
+  - typing
+
+  - dataclasses
+
+  - recursive traversal
+
+  - dependency injection
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+  - architecture
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+
+  Repository modules must never call LM Studio,
+  generate code, or modify source files.
+  Their only responsibility is understanding the
+  repository structure and contents.
+

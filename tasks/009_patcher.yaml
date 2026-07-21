@@ -1,0 +1,129 @@
+﻿schema_version: 2
+
+id: 9
+
+name: Code Patcher
+
+status: pending
+
+priority: critical
+
+estimated_minutes: 45
+
+project_context:
+
+  architecture: Offline AI
+
+  layer: Engine
+
+  phase: Code Application
+
+  responsibility: Apply validated AI-generated changes safely.
+
+goal: |
+
+  Build a patch engine capable of safely applying code
+  modifications while creating backups, detecting conflicts,
+  and preserving repository integrity.
+
+depends_on:
+
+  - 8
+
+creates:
+
+  - offline_ai/engine/patcher.py
+
+modifies: []
+
+inputs:
+
+  - Generated Code
+
+  - Target Files
+
+outputs:
+
+  - Applied Patch
+
+  - Patch Report
+
+acceptance_criteria:
+
+  - Patch application.
+
+  - Backup creation.
+
+  - Dry-run mode.
+
+  - Conflict detection.
+
+  - UTF-8 preservation.
+
+  - Rollback support.
+
+  - Patch summary.
+
+implementation_notes:
+
+  - pathlib
+
+  - shutil
+
+  - difflib
+
+  - typing
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+  - architecture
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+
+  Patcher applies changes only.
+  It never generates code.
+

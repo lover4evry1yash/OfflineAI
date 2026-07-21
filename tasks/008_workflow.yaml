@@ -1,0 +1,149 @@
+﻿schema_version: 2
+
+id: 8
+
+name: Workflow Engine
+
+status: pending
+
+priority: critical
+
+estimated_minutes: 60
+
+project_context:
+
+  architecture: Offline AI
+
+  layer: Core
+
+  phase: Orchestration
+
+  responsibility: Coordinate the complete Offline AI pipeline.
+
+goal: |
+
+  Build the workflow engine responsible for routing
+  requests through repository analysis, planning,
+  prompt generation, model execution and returning
+  structured responses.
+
+depends_on:
+
+  - 3
+
+  - 4
+
+  - 5
+
+  - 6
+
+  - 7
+
+creates:
+
+  - offline_ai/core/router.py
+
+  - offline_ai/core/workflow.py
+
+modifies: []
+
+inputs:
+
+  - User Request
+
+  - Repository
+
+  - Execution Plan
+
+outputs:
+
+  - Workflow Result
+
+  - Structured Response
+
+  - Execution Metadata
+
+acceptance_criteria:
+
+  - Router class.
+
+  - Workflow class.
+
+  - Repository integration.
+
+  - Planner integration.
+
+  - Prompt Builder integration.
+
+  - LM Studio integration.
+
+  - Structured responses.
+
+  - Error propagation.
+
+  - Logging integration.
+
+implementation_notes:
+
+  - dependency injection
+
+  - dataclasses(slots=True)
+
+  - typing
+
+  - pathlib
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+  - architecture
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+
+  Workflow coordinates the system.
+  It never contains business logic.
+  It only orchestrates modules through their public APIs.
+

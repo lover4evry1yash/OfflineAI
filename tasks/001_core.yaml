@@ -1,0 +1,131 @@
+﻿schema_version: 2
+
+id: 1
+
+name: Core Foundation
+
+status: pending
+
+priority: critical
+
+estimated_minutes: 45
+
+project_context:
+
+  architecture: Offline AI
+
+  layer: Core
+
+  phase: Foundation
+
+  responsibility: Configuration and shared infrastructure
+
+goal: |
+
+  Build the core infrastructure required by every
+  other module. Implement configuration loading,
+  validation and custom exception hierarchy.
+
+depends_on: []
+
+creates:
+
+  - offline_ai/core/config.py
+
+  - offline_ai/core/exceptions.py
+
+modifies: []
+
+inputs:
+
+  - config.yaml
+
+  - Environment Variables
+
+outputs:
+
+  - Config class
+
+  - Configuration loader
+
+  - Configuration validator
+
+  - Exception hierarchy
+
+acceptance_criteria:
+
+  - Configuration loads from YAML.
+
+  - Environment overrides supported.
+
+  - Validation performed.
+
+  - Helpful error messages.
+
+  - Typed configuration model.
+
+  - Custom exception hierarchy.
+
+implementation_notes:
+
+  - pathlib
+
+  - dataclasses(slots=True)
+
+  - typing
+
+  - dependency injection
+
+  - no globals
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+
+  Every future module depends on this task.
+  Keep APIs small, stable and reusable.
+

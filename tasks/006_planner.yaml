@@ -1,0 +1,139 @@
+﻿schema_version: 2
+
+id: 6
+
+name: Task Planner
+
+status: pending
+
+priority: critical
+
+estimated_minutes: 60
+
+project_context:
+
+  architecture: Offline AI
+
+  layer: AI
+
+  phase: Reasoning
+
+  responsibility: Convert user requests into implementation plans.
+
+goal: |
+
+  Build an intelligent planning engine capable of
+  analyzing repository context, understanding user
+  requests and producing structured implementation
+  plans before any code generation begins.
+
+depends_on:
+
+  - 3
+
+  - 5
+
+creates:
+
+  - offline_ai/ai/planner.py
+
+modifies: []
+
+inputs:
+
+  - User Task
+
+  - Repository Search
+
+  - Repository Index
+
+outputs:
+
+  - Execution Plan
+
+  - Ordered Steps
+
+  - File Targets
+
+  - Dependency Graph
+
+acceptance_criteria:
+
+  - Planner class.
+
+  - Plan dataclass.
+
+  - Repository-aware planning.
+
+  - Ordered execution steps.
+
+  - Dependency analysis.
+
+  - File impact analysis.
+
+  - Structured planning output.
+
+implementation_notes:
+
+  - dataclasses(slots=True)
+
+  - typing
+
+  - dependency injection
+
+  - immutable planning objects
+
+verification:
+
+  compile: true
+
+  imports: true
+
+  type_hints: true
+
+  docstrings: true
+
+  circular_imports: true
+
+quality_gates:
+
+  - compile
+
+  - imports
+
+  - type_hints
+
+  - docstrings
+
+  - architecture
+
+rollback:
+
+  backup_modified_files: true
+
+  restore_on_failure: true
+
+on_success:
+
+  update_build_plan: completed
+
+  increment_task: true
+
+  save_history: true
+
+  update_metrics: true
+
+  stop: true
+
+on_failure:
+
+  retry: 2
+
+  save_error: true
+
+notes: |
+
+  The Planner never writes code.
+  It only decides what should be built and in what order.
+  Code generation belongs to later AI modules.
+
